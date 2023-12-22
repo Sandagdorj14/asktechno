@@ -34,7 +34,11 @@ class License extends CI_Controller {
 	}
 
 	public function contracts() {
-		$gender = $this->license_model->get_contracts();
-		echo json_encode($gender, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		$inputs = json_decode(file_get_contents('php://input'), true);
+		if(isset($inputs['mac_address'])){
+			$mac_address = $inputs['mac_address'];
+			$result = $this->license_model->get_contracts();
+			echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		}
 	}
 }
