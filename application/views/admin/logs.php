@@ -11,42 +11,33 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Users</h1>
+                        <h1 class="mt-4">Logs</h1>
                         <div class="card mb-4">
                             <div class="card-header">
-                                Users
+                                Logs
                             </div>
                             <div class="card-body">
                             <table id="datatablesAnkets">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>company name</th>
-                                            <th>email</th>
-                                            <th>mac address</th>
-                                            <th>is activate</th>
-                                            <th>is entry</th>
+                                            <th>Mac Address</th>
+                                            <th>Log Time</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>company name</th>
-                                            <th>email</th>
                                             <th>mac address</th>
-                                            <th>is activate</th>
-                                            <th>is entry</th>
+                                            <th>log time</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php foreach ($users as $key) { ?>
+                                        <?php foreach ($logs as $key) { ?>
                                         <tr>
-                                            <td><?php echo($key->user_id); ?></td>
-                                            <td><?php echo($key-> company_name); ?></td>
-                                            <td><?php echo($key->user_email); ?></td>
+                                            <td><?php echo($key->id); ?></td>
                                             <td><?php echo($key->macid); ?></td>
-                                            <td><?php echo($key->is_activate); ?></td>
-                                            <td><?php echo($key->entry_flg); ?></td>
+                                            <td><?php echo($key->log_time); ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

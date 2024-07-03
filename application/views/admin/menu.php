@@ -8,6 +8,9 @@
                 <a class="nav-link" href="users">
                     Users
                 </a>
+                <a class="nav-link" href="logs">
+                    Logs
+                </a>
                 <a class="nav-link" href="admin_logout">
                     Logout
                 </a>

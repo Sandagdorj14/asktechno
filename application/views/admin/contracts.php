@@ -24,20 +24,20 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>company name</th>
                                             <th>email</th>
                                             <th>license count</th>
                                             <th>expired date</th>
-                                            <th>type</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
+                                            <th>company name</th>
                                             <th>email</th>
                                             <th>license count</th>
                                             <th>expired date</th>
-                                            <th>type</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -45,15 +45,19 @@
                                         <?php foreach ($contracts as $key) { ?>
                                         <tr>
                                             <td><?php echo($key->id); ?></td>
+                                            <td><?php echo($key->company_name); ?></td>
                                             <td><?php echo($key->email); ?></td>
                                             <td><?php echo($key->license_count); ?></td>
                                             <td><?php echo($key->expired_date); ?></td>
-                                            <td><?php echo($key->type); ?></td>
                                             <td>
-                                                <a class="btn btn-danger" data-toggle="modal" href="">
-                                                    <span>Delete</span>
+                                                <a href="contract_delete?id=<?php echo($key->id)?> "  class="btn btn-danger" data-toggle="modal" href="delete">
+                                                <?php if($key->delete_flg == 1){?>
+                                                    <span>Restory</span> 
+                                                <?php }else{?>
+                                                    <span>Delete</span> 
+                                                <?php }?>
                                                 </a>
-                                                <a class="btn btn-success" data-toggle="modal" href="">
+                                                <a href="contract_update?id=<?php echo($key->id)?> " class="btn btn-success" data-toggle="modal" href="update">
                                                     <span>Update</span>
                                                 </a>
                                             </td>

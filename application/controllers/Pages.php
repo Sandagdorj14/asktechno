@@ -168,10 +168,20 @@
                 redirect('pages/admin');
             }
         }
+        public function logs($page = 'home'){
+            if($this->session->userdata('username') != '') {
+                $data['title'] = ucfirst($page);
+                $data['logs'] = $this->main_model->get_logs();
+                $this->load->view('admin/logs',  $data);
+            } else {
+                redirect('pages/admin');
+            }
+        }
         
         public function users($page = 'home'){
             if($this->session->userdata('username') != '') {
                 $data['title'] = ucfirst($page);
+                $data['users'] = $this->main_model->get_joindata();
                 $this->load->view('admin/users', $data);
             } else {
                 redirect('pages/admin');
@@ -188,13 +198,46 @@
         }
 
         public function contract_create(){
-            $email = $this->input->post('email');
-            $password = $this->input->post('password');
-            $license_count = $this->input->post('license_count');
-            $expired_date = $this->input->post('expired_date'); 
-            $this->load->model('main_model');
-            $this->main_model->contractInsert($email, $password, $license_count, $expired_date);
-            redirect('pages/contracts');
+            if(!empty($this->input->post('Company_name'))&& !empty($this->input->post('email')) && !empty($this->input->post('password'))&& !empty($this->input->post('expired_date')) && !empty($this->input->post('license_count'))){
+                $email = $this->input->post('email');
+                $is_registrated = $this -> main_model->check_registrated($email);
+                if($is_registrated == 1){
+                    $password = $this->input->post('password');
+                    $license_count = $this->input->post('license_count');
+                    $expired_date = $this->input->post('expired_date'); 
+                    $company_name = $this->input->post('Company_name');
+                    $this->load->model('main_model');
+                    $this->main_model->contractInsert( $company_name,$email, $password, $license_count, $expired_date);
+                    redirect('pages/contracts');
+                }
+                else{
+                    $this->load->view('admin/contract_create');
+                }
+            }
+            else{
+                $this->load->view('admin/contract_create');
+            }
         }
-       
+
+        public function contract_update($page = 'home'){
+            if (!empty($this->input->post('id'))) {
+                $id = $this->input->post('id');
+                $license_count = $this->input->post('license_count');
+                $expired_date = $this->input->post('expired_date');
+                $this->main_model->contractUpdate($id, $license_count, $expired_date);
+                redirect('pages/contracts');
+            } elseif(!empty($this->input->get('id'))) {
+                $data['contract'] = $this->main_model->getById($this->input->get('id'))[0];
+                $this->load->view('admin/contract_update', $data);
+            } else {
+                redirect('pages/contracts');
+            }
+        }
+        public function contract_delete(){
+            if(!empty($this->input->get('id'))) {
+                $id = $this->input->get('id');
+                $this->main_model-> deletecontract($id);
+                redirect('pages/contracts');
+            }
+        }
     }
